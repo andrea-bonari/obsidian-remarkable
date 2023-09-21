@@ -16,3 +16,6 @@ data.json
 #venv
 venv
 .venv
+
+#tests
+outp_*.png

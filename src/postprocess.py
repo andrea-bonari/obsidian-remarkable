@@ -1,36 +1,43 @@
 #!/usr/bin/env python3
-import sys
 
+# This code may be bad, but it works!
+import sys
 from PIL import Image, ImageOps
 import numpy as np
 
 if __name__ == '__main__':
     assert len(sys.argv) >= 2, "Image path must be passed!"
-    path = " ".join(sys.argv[1:])
+    path = (sys.argv[1])
 
     # load image, discard alpha (if present)
     img = Image.open(path).convert("RGB")
 
     # remove menu and indicators
     data = np.array(img)
-    menu_is_open = (data[52:58, 52:58] == 0).all()
+    # check if there is a menu indicator circle in the top left corner
+    menu_is_open = (data[:102, :102, :] == [0, 0, 0]).all(axis=2).any()
     if menu_is_open:
         # remove the entire menu, and the x in the top right corner
-        data[:, :120, :] = 255
-        data[40:81, 1324:1364, :] = 255
+        data[:, :104, :] = 255
+        # crop top right corner
+        data = data[72:, 72:, :]
     else:
-        # remove only the menu indicator circle
-        data[40:81, 40:81, :] = 255
+        # remove only the menu indicator circle from top left corner 102 pixels wide
+        data[:71, :71, :] = 255
 
     # crop to the bounding box
     img = Image.fromarray(data).convert("RGB")
     bbox = ImageOps.invert(img).getbbox()
     img = img.crop(bbox)
 
+    img = ImageOps.invert(img)
+
     # set alpha channel
     data = np.array(img.convert("RGBA"))
-    # copy inverted red channel to alpha channel, so that the background is transparent
-    # (could have also used blue or green here, doesn't matter)
-    data[..., -1] = 255 - data[..., 0]
+    # filter out all black pixels
+    black = (data[:, :, :3] == 0).all(axis=2)
+    data[black, 3] = 0
+
     img = Image.fromarray(data)
+
     img.save(path)

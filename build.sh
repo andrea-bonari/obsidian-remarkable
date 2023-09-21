@@ -9,7 +9,7 @@ else
     exit 1
 fi
 
-$RUNTIME run build
+$RUNTIME run build:typescript
 cp styles.css build/styles.css
 cp manifest.json build/manifest.json
 cp src/postprocess.py build/postprocess.py

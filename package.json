@@ -1,11 +1,15 @@
 {
   "name": "remarkable-obsidian",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A plugin to integrate the reMarkable tablet into an Obsidian workflow, allowing users to insert drawings as nicely styled transparent images",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
-    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production"
+    "dev:postprocessor": "./test/test.sh",
+    "build" : "./build.sh",
+    "build:typescript": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix"
   },
   "keywords": [],
   "author": "spartacus04",
