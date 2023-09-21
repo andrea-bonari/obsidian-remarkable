@@ -6,12 +6,22 @@ for /f "tokens=* USEBACKQ" %%i in (`where bun 2^>nul`) do (
     goto :FoundRuntime
 )
 
-for /f "tokens=* USEBACKQ" %%i in (`where node 2^>nul`) do (
+for /f "tokens=* USEBACKQ" %%i in (`where pnpm 2^>nul`) do (
     set "RUNTIME=%%i"
     goto :FoundRuntime
 )
 
-echo No runtime found. Please install bun or node.
+for /f "tokens=* USEBACKQ" %%i in (`where yarn 2^>nul`) do (
+    set "RUNTIME=%%i"
+    goto :FoundRuntime
+)
+
+for /f "tokens=* USEBACKQ" %%i in (`where npm 2^>nul`) do (
+    set "RUNTIME=%%i"
+    goto :FoundRuntime
+)
+
+echo No runtime found. Please install either bun or node.
 exit /b 1
 
 :FoundRuntime

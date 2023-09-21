@@ -5,7 +5,3 @@
 .remarkable-output-path-success {
   color: var(--text-accent);
 }
-
-body.theme-dark img[src*="rM%20drawing"] {
-  filter: invert(1);
-}

@@ -1,11 +1,15 @@
 #!/bin/sh
 
 if [ -x $(command -v bun) ]; then
-    RUNTIME=$(command -v bun)
-elif [ -x $(command -v node) ]; then
-    RUNTIME=$(command -v node)
+    RUNTIME='bun'
+elif [ -x $(command -v pnpm) ]; then
+    RUNTIME='pnpm'
+elif [ -x $(command -v yarn) ]; then
+    RUNTIME='yarn'
+elif [ -x $(command -v npm) ]; then
+    RUNTIME='npm'
 else
-    echo "No runtime found. Please install bun or node."
+    echo "No runtime found. Please install either bun or node."
     exit 1
 fi
 

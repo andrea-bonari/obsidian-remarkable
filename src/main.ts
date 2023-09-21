@@ -64,7 +64,7 @@ export default class RemarkablePlugin extends Plugin {
 
 		return new Promise(async (resolve, reject) => {
 			if(this.is_flatpak && executable_path !== 'flatpak-spawn') {
-				resolve(await this.runProcess('flatpak-spawn', ['--host'].concat(executable_path, ...args)));
+				return resolve(await this.runProcess('flatpak-spawn', ['--host'].concat(executable_path, ...args)));
 			}
 
 			const process = spawn(executable_path, args);
@@ -151,9 +151,7 @@ export default class RemarkablePlugin extends Plugin {
 	async tryInsertingDrawing(landscape: boolean) {
 		new Notice('Inserting rM drawing...', 2000);
 		try {
-			console.log('calling resnap');
 			const result = await this.callReSnap(landscape);
-			console.log('called resnap');
 
 			if(!result) {
 				return;
@@ -162,14 +160,11 @@ export default class RemarkablePlugin extends Plugin {
 			const { drawingFilePath, drawingFileName } = result;
 
 			if (this.settings.postprocessor) {
-				console.log('post processing');
 				await this.postprocessDrawing(drawingFilePath);
-				console.log('postprocessed');
 			}
 
 			if(!this.editor) throw new Error('Could not get editor!');
 
-			console.log('replacing text');
 			this.editor.replaceRange(`![[${drawingFileName}]]`, this.editor.getCursor());
 
 			new Notice('Inserted your rM drawing!');
