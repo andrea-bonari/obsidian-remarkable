@@ -1,24 +1,23 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "module": "ESNext",
-    "target": "es6",
-    "allowJs": true,
-    "noImplicitAny": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "lib": [
-      "dom",
-      "es5",
-      "scripthost",
-      "es2015"
-    ]
-  },
-  "include": [
-    "**/*.ts"
-  ]
+	"compilerOptions": {
+		"baseUrl": "./src",
+		"rootDir": "./src",
+		"outDir": "./build",
+		"strict": true,
+		"inlineSourceMap": true,
+		"inlineSources": true,
+		"module": "ESNext",
+		"target": "ES6",
+		"allowJs": true,
+		"noImplicitAny": true,
+		"moduleResolution": "node",
+		"importHelpers": true,
+		"isolatedModules": true,
+		"strictNullChecks": true,
+    	"forceConsistentCasingInFileNames": true,
+    	"removeComments": true,
+		"allowSyntheticDefaultImports": true,
+		"lib": ["DOM", "ES5", "ES6", "ES7"]
+	},
+	"include": ["**/*.ts"]
 }

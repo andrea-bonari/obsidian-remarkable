@@ -1,7 +1,11 @@
 .remarkable-output-path-error {
-    color: var(--text-error);
+  color: var(--text-error);
 }
 
 .remarkable-output-path-success {
-    color: var(--text-accent);
+  color: var(--text-accent);
+}
+
+body.theme-dark img[src*="rM%20drawing"] {
+  filter: invert(1);
 }
