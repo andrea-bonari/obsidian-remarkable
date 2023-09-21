@@ -1,6 +1,6 @@
 {
   "name": "remarkable-obsidian",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "A plugin to integrate the reMarkable tablet into an Obsidian workflow, allowing users to insert drawings as nicely styled transparent images",
   "main": "main.js",
   "scripts": {
