@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node esbuild.config.mjs",
     "dev:postprocessor": "./test/test.sh",
-    "build" : "./build.sh",
+    "build": "./build.sh",
     "build:typescript": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix"
@@ -15,20 +15,20 @@
   "author": "spartacus04",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^20.6.3",
-    "@typescript-eslint/eslint-plugin": "^6.7.2",
-    "@typescript-eslint/parser": "^6.7.2",
+    "@types/node": "^26.6.6",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
     "builtin-modules": "3.3.0",
     "esbuild": "0.19.3",
-    "eslint": "^8.49.0",
-    "eslint-config-prettier": "^9.0.0",
-    "obsidian": "^1.4.11",
-    "prettier": "^3.0.3",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.2",
+    "obsidian": "^1.14.4",
+    "prettier": "^3.9.10",
     "tslib": "2.6.2",
     "typescript": "5.2.2"
   },
   "dependencies": {
     "eslint-plugin-editorconfig": "^4.0.3",
-    "moment": "^2.29.4"
+    "moment": "^2.31.0"
   }
 }

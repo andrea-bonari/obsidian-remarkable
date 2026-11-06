@@ -1,4 +1,3 @@
-import fs from 'fs';
 import path from 'path';
 import { spawn } from 'child_process';
 import moment from 'moment';
@@ -46,14 +45,20 @@ export default class RemarkablePlugin extends Plugin {
 
 	// #region processes
 	async checkFlatpak() {
-		const { stderr } = await this.runProcess('which', ['flatpak-spawn']);
+		try {
+			const { stderr } = await this.runProcess('which', ['flatpak-spawn']);
 
-		if(stderr !== '') {
-			this.is_flatpak = false;
-			return;
+			if(stderr !== '') {
+				this.is_flatpak = false;
+				return;
+			}
+
+			this.is_flatpak = true;
 		}
-
-		this.is_flatpak = true;
+		catch (error) {
+			console.error('Error checking flatpak:', error);
+			this.is_flatpak = false;
+		}
 	}
 
 	async runProcess(executable_path: string, args: string[]): Promise<Record<'stderr' | 'stdout', string>> {
@@ -124,25 +129,6 @@ export default class RemarkablePlugin extends Plugin {
 		const args = [drawingFilePath];
 		// get plugin path and append postprocess.py
 		const postprocessor_path = custom_postprocessor == '' ? path.join((this.app.vault.adapter as DataAdapter&{basePath: string}).basePath, '.obsidian', 'plugins', this.manifest.id, 'postprocess.py') : custom_postprocessor;
-
-		if(custom_postprocessor == '') {
-			// check if venv directory exits
-			const venv_path = path.join((this.app.vault.adapter as DataAdapter&{basePath: string}).basePath, '.obsidian', 'plugins', this.manifest.id, 'venv');
-
-			if(!fs.existsSync(venv_path)) {
-				new Notice('Installing postprocessor dependencies', 2000);
-				const { stderr } = await this.runProcess('python3', ['-m', 'venv', venv_path]);
-				if(stderr != '') {
-					fs.rmSync(venv_path, { force: true, recursive: true });
-					return new Notice('Could not create postprocessor venv!');
-				}
-				const { stderr: err } = await this.runProcess(path.join(venv_path, 'bin', 'python'), ['-m', 'pip', 'install', 'pillow', 'numpy']);
-				if(err != '') {
-					fs.rmSync(venv_path, { force: true, recursive: true });
-					return new Notice('Could not install postprocessor dependencies!');
-				}
-			}
-		}
 
 		await this.runProcess(postprocessor_path, args);
 	}

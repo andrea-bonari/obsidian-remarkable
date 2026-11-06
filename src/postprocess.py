@@ -17,18 +17,16 @@ if __name__ == '__main__':
     # check if there is a menu indicator circle in the top left corner
     menu_is_open = (data[:102, :102, :] == [0, 0, 0]).all(axis=2).any()
     if menu_is_open:
-        # remove the entire menu, and the x in the top right corner
-        data[:, :104, :] = 255
-        # crop top right corner
-        data = data[72:, 72:, :]
+        # preserve the full image while processing the open menu
+        pass
     else:
-        # remove only the menu indicator circle from top left corner 102 pixels wide
-        data[:71, :71, :] = 255
+        # preserve the menu indicator and the left side of the image
+        pass
 
     # crop to the bounding box
     img = Image.fromarray(data).convert("RGB")
     bbox = ImageOps.invert(img).getbbox()
-    img = img.crop(bbox)
+    img = img.crop((0, 0, bbox[2], bbox[3]))
 
     img = ImageOps.invert(img)
 

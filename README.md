@@ -9,7 +9,7 @@ This a plugin integrating the [reMarkable](https://remarkable.com) paper tablet 
 #### Prerequisites
 - Set up [reSnap](https://github.com/cloudsftp/reSnap) on your reMarkable tablet and on your computer.
 - Set up your reMarkable so you have passwordless access over SSH, see https://www.reddit.com/r/RemarkableTablet/comments/78u90n/passwordless_ssh_setup_for_remarkable_tablet/
-- To use the default post processor script setup python3
+- To use the default post processor script, install Python 3 with the Pillow and NumPy packages available to it.
   
 Now, go to this plugin's settings page and configure them as described below.
 #### Settings
